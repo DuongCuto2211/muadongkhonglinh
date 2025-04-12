@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trò chơi Tài Xỉu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .history-table th, .history-table td {
+            border: 1px solid #aaa;
+            padding: 10px;
+            text-align: left;
+        }
+        .history-table th {
+            background-color: #ddd;
+        }
+        .summary {
+            margin-top: 30px;
+            background: #e9f5e9;
+            padding: 20px;
+            border: 1px solid #ccc;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <h1>=== Trò chơi Tài Xỉu ===</h1>
+
+    <h2>Lịch sử trò chơi</h2>
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>Ván</th>
+                <th>Chọn</th>
+                <th>Kết quả</th>
+                <th>Cược</th>
+                <th>Số dư</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Ví dụ dữ liệu -->
+            <tr>
+                <td>1</td>
+                <td>Tài</td>
+                <td>Thắng</td>
+                <td>1000</td>
+                <td>2000</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Xỉu</td>
+                <td>Thua</td>
+                <td>500</td>
+                <td>1500</td>
+            </tr>
+            <!-- Thêm dòng mới ở đây -->
+        </tbody>
+    </table>
+
+    <div class="summary">
+        <h2>=== Thống kê ===</h2>
+        <p>Số ván chơi: 2</p>
+        <p>Số ván thắng: 1</p>
+        <p>Số ván thua: 1</p>
+        <p>Tỉ lệ thắng: 50.00%</p>
+        <p>Số dư cuối cùng: 1500 đồng</p>
+    </div>
+</body>
+</html>
