@@ -3,161 +3,225 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f8f6ed">
-  <meta name="description" content="Một lời mời nhỏ gửi đến những người bạn thân thương.">
-  <title>Một cuộc hẹn nhỏ</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#123d50">
+  <meta name="description" content="Một lời mời nhỏ, một buổi gặp vui và thật nhiều kỷ niệm.">
+  <title>Thư mời – Có một lời mời dành cho bạn</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
-  <script src="script.js" defer></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="config.js"></script>
+  <script defer src="script.js"></script>
 </head>
-<body>
+<body class="is-locked">
   <div class="paper-grain" aria-hidden="true"></div>
 
+  <!-- Màn hình phong bì -->
   <section class="intro" id="intro" aria-label="Phong bì thư mời">
-    <div class="intro-note">một lời nhắn nhỏ dành cho bạn</div>
-    <button class="envelope-button" id="openLetter" type="button" aria-label="Mở thư mời">
-      <span class="envelope-shadow"></span>
-      <span class="envelope">
-        <span class="envelope-back"></span>
-        <span class="letter-peek">
-          <span class="letter-peek-title">có hẹn nhé!</span>
-          <span class="letter-peek-line"></span>
-          <span class="letter-peek-line short"></span>
-        </span>
-        <span class="envelope-front"></span>
-        <span class="envelope-flap"></span>
-        <span class="wax-seal">✳</span>
-      </span>
-    </button>
-    <p class="tap-hint">chạm vào phong thư để mở</p>
-    <span class="intro-spark spark-one">✳</span>
-    <span class="intro-spark spark-two">✦</span>
-    <span class="intro-spark spark-three">〰</span>
+    <div class="intro-sky" aria-hidden="true">
+      <span class="intro-star star-one">✦</span>
+      <span class="intro-star star-two">✧</span>
+      <span class="intro-star star-three">·</span>
+      <span class="intro-wave wave-one"></span>
+      <span class="intro-wave wave-two"></span>
+    </div>
+    <div class="intro-content">
+      <p class="eyebrow intro-eyebrow">A LITTLE NOTE FOR YOU</p>
+      <h1 class="intro-title">Có một lời mời<br><em>dành cho bạn...</em></h1>
+      <p class="intro-subtitle">Một chiếc hẹn nho nhỏ, mong bạn sẽ đến.</p>
+
+      <div class="envelope-wrap" aria-hidden="true">
+        <div class="envelope-shadow"></div>
+        <div class="envelope" id="envelope">
+          <div class="envelope-back"></div>
+          <div class="letter-peek">
+            <span class="letter-peek-line"></span>
+            <span class="letter-peek-script">For you</span>
+            <span class="letter-peek-line short"></span>
+          </div>
+          <div class="envelope-pocket"></div>
+          <div class="envelope-flap"></div>
+          <div class="wax-seal"><span>✦</span></div>
+        </div>
+      </div>
+
+      <button class="button button-gold open-button" id="open-invitation" type="button">
+        <span>MỞ THƯ</span><span class="button-arrow" aria-hidden="true">↗</span>
+      </button>
+      <p class="intro-footnote">Nhấn mở thư để bắt đầu nhé</p>
+    </div>
+    <p class="intro-bottom-mark">SEA BLUE <span>·</span> CHAMPAGNE GOLD</p>
   </section>
 
-  <header class="topbar" id="topbar">
-    <a class="brand" href="#top" aria-label="Về đầu trang">một cuộc hẹn <span>✳</span></a>
-    <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" disabled>
-      <span class="music-dot" aria-hidden="true"></span>
-      <span id="musicLabel">chưa có nhạc</span>
-    </button>
-  </header>
+  <button class="music-toggle" id="music-toggle" type="button" aria-label="Bật nhạc nền" title="Bật nhạc nền" hidden>
+    <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="music-label">NHẠC NỀN</span>
+  </button>
+  <audio id="background-music" preload="none" loop>
+    <source id="music-source" src="music/nhac-lofi.mp3" type="audio/mpeg">
+  </audio>
 
-  <main id="top" class="page-content" hidden>
-    <section class="hero section-wrap">
-      <div class="margin-note">ghi vào lịch nha!</div>
-      <p class="eyebrow reveal">GỬI HỘI BẠN THÂN</p>
-      <h1 class="hero-title reveal"><span id="heroLead">Mình có</span><br><span class="marker marker-green" id="heroTitle">một cuộc hẹn</span><br><span class="hero-tail" id="heroTail">muốn rủ bạn</span></h1>
-      <p class="hero-copy reveal" id="heroCopy">Không cần dịp gì to tát, chỉ là muốn gặp nhau một hôm, kể vài chuyện linh tinh và cười thật nhiều.</p>
-      <div class="hero-sticker reveal" aria-hidden="true"><span>đi nha!</span><i>↗</i></div>
-      <a class="scroll-cue reveal" href="#invitation"><span>kéo xuống xem tiếp</span><b>↓</b></a>
+  <main id="site-content" aria-hidden="true" inert>
+    <header class="site-header">
+      <a class="brand" href="#letter" aria-label="Về đầu thiệp">
+        <span class="brand-mark">✦</span>
+        <span>THE LITTLE INVITATION</span>
+      </a>
+      <span class="header-note">Một ngày thật vui đang chờ</span>
+    </header>
+
+    <!-- PHẦN 2: Lời mời -->
+    <section class="section letter-section" id="letter">
+      <div class="section-kicker reveal"><span class="kicker-line"></span> 01 / LỜI NHẮN <span class="kicker-line"></span></div>
+      <article class="letter-paper reveal">
+        <div class="paper-corner corner-tl" aria-hidden="true">✧</div>
+        <div class="paper-corner corner-br" aria-hidden="true">✦</div>
+        <p class="paper-overline">A NOTE FROM A FRIEND</p>
+        <h2 class="handwritten letter-heading" id="invitation-title">Ê, có hẹn nhé!</h2>
+        <div class="letter-rule"><span>❧</span></div>
+        <p class="letter-copy" id="invitation-body">Không biết dạo này mọi người thế nào rồi nhỉ? Mình muốn rủ cả nhóm gặp nhau một hôm để cùng trò chuyện, vui chơi và lưu lại thêm vài kỷ niệm.
+
+Sắp xếp thời gian đến nhé! Có mặt đông đủ thì mới vui.</p>
+        <div class="letter-signoff">
+          <span class="signoff-text">Thân,</span>
+          <span class="handwritten signature" id="sender-signature">Hải Dương</span>
+          <span class="sender-name" id="sender-name">Người gửi lời mời</span>
+        </div>
+        <span class="paper-page-number">01</span>
+      </article>
+      <p class="margin-note handwritten reveal">P/S: Nhớ đến đó nha! <span>♡</span></p>
     </section>
 
-    <section class="section-wrap invitation-section" id="invitation">
-      <div class="section-kicker reveal"><span>01</span><span>lời nhắn</span></div>
-      <div class="notebook-card letter-card reveal">
-        <div class="tape tape-left"></div><div class="tape tape-right"></div>
-        <p class="hand-label">này bạn ơi,</p>
-        <h2 class="section-title">Lâu rồi chưa <span class="marker marker-orange">ngồi lại</span> nhỉ?</h2>
-        <p class="letter-copy" id="letterCopy">Dạo này mỗi đứa một lịch trình, chắc cũng lâu rồi tụi mình chưa có một buổi gặp mặt cho ra trò. Mình muốn rủ bạn dành chút thời gian để gặp nhau, ăn uống, tám chuyện trên trời dưới đất và chụp thêm vài tấm hình làm kỷ niệm.</p>
-        <p class="letter-copy">Không cần chuẩn bị gì đâu, cứ đến với tâm trạng thật vui là được. Có bạn góp mặt thì buổi gặp sẽ vui hơn nhiều!</p>
-        <p class="letter-signoff">Hẹn gặp bạn nha <span>♡</span></p>
-      </div>
-    </section>
-
-    <section class="section-wrap details-section" id="details">
-      <div class="section-kicker reveal"><span>02</span><span>thông tin cuộc hẹn</span></div>
-      <h2 class="section-title reveal">Chốt <span class="marker marker-green">kèo</span> nhé!</h2>
-      <div class="details-grid">
-        <article class="detail-card detail-date reveal">
-          <span class="detail-label">NGÀY HẸN</span>
-          <div class="detail-big" id="dateDay">29</div>
-          <div class="detail-month" id="dateMonth">THÁNG 11 · 2026</div>
-          <p class="detail-small" id="dateWeekday">Chủ nhật</p>
-          <span class="doodle-star" aria-hidden="true">✳</span>
-        </article>
-        <article class="detail-card detail-time reveal">
-          <span class="detail-label">GIỜ GẶP</span>
-          <div class="detail-time-big" id="eventTime">09:30 – 10:30</div>
-          <p class="detail-small">Đừng đến trễ nha :D</p>
-          <span class="time-squiggle" aria-hidden="true">〰〰</span>
-        </article>
-        <article class="detail-card detail-place reveal">
-          <span class="detail-label">ĐỊA ĐIỂM</span>
-          <div class="detail-place-big" id="eventVenue">THPT Cẩm Lý</div>
-          <p class="detail-small" id="eventAddress">mình gặp nhau tại đây nhé</p>
-          <a class="text-link" id="mapLink" href="https://maps.google.com" target="_blank" rel="noopener">mở bản đồ ↗</a>
-        </article>
-      </div>
-      <div class="countdown reveal" aria-live="polite">
-        <span class="countdown-label">còn lại đến ngày gặp nhau</span>
-        <div class="countdown-values">
-          <div><b id="days">--</b><span>ngày</span></div>
-          <i>:</i><div><b id="hours">--</b><span>giờ</span></div>
-          <i>:</i><div><b id="minutes">--</b><span>phút</span></div>
-          <i>:</i><div><b id="seconds">--</b><span>giây</span></div>
+    <!-- PHẦN 3: Thông tin sự kiện -->
+    <section class="section event-section" id="event">
+      <div class="section-kicker reveal"><span class="kicker-line"></span> 02 / CUỘC HẸN <span class="kicker-line"></span></div>
+      <div class="event-layout">
+        <div class="event-date-card reveal">
+          <span class="date-topline">SAVE THE DATE</span>
+          <span class="date-day" id="event-day">29</span>
+          <span class="date-month" id="event-month">THÁNG 11</span>
+          <span class="date-year" id="event-year">2026</span>
+          <span class="date-flourish" aria-hidden="true">✧</span>
+        </div>
+        <div class="event-details reveal">
+          <p class="event-intro handwritten">Ghi lại vào lịch nha!</p>
+          <div class="detail-row">
+            <span class="detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.2 2"></path></svg>
+            </span>
+            <div><span class="detail-label">THỜI GIAN</span><strong id="event-time">09:30 – 10:30</strong></div>
+          </div>
+          <div class="detail-row">
+            <span class="detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M19 10.2c0 5-7 11-7 11s-7-6-7-11a7 7 0 1 1 14 0Z"></path><circle cx="12" cy="10" r="2.2"></circle></svg>
+            </span>
+            <div><span class="detail-label">ĐỊA ĐIỂM</span><strong id="event-location">THPT Cẩm Lý</strong></div>
+          </div>
+          <div class="detail-row">
+            <span class="detail-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6.6 3.5 9.5 7l-2 2.3a15 15 0 0 0 7.2 7.2l2.3-2 3.5 2.9-.9 3.1c-.3 1-1.3 1.6-2.3 1.4C9.6 20.3 3.7 14.4 2.1 6.7c-.2-1 .4-2 1.4-2.3l3.1-.9Z"></path></svg>
+            </span>
+            <div><span class="detail-label">LIÊN HỆ</span><a class="detail-contact" id="event-contact" href="tel:0971460102">0971 460 102</a></div>
+          </div>
+          <a class="button button-outline maps-button" id="maps-link" href="https://www.google.com/maps/search/?api=1&query=THPT%20C%E1%BA%A9m%20L%C3%BD" target="_blank" rel="noopener noreferrer">
+            <span aria-hidden="true">⌖</span> MỞ GOOGLE MAPS <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
-    </section>
-
-    <section class="section-wrap plan-section">
-      <div class="section-kicker reveal"><span>03</span><span>hôm đó làm gì?</span></div>
-      <h2 class="section-title reveal">Một buổi thật <span class="marker marker-orange">thoải mái</span></h2>
-      <div class="plan-list">
-        <div class="plan-item reveal"><span class="plan-number">01</span><div><b>Gặp nhau</b><p>Chào nhau một cái thật to, lâu rồi mới gặp mà!</p></div><span class="plan-doodle">✳</span></div>
-        <div class="plan-item reveal"><span class="plan-number">02</span><div><b>Ăn uống & tám chuyện</b><p>Cập nhật chuyện vui, chuyện buồn và cả chuyện không đầu không cuối.</p></div><span class="plan-doodle">☻</span></div>
-        <div class="plan-item reveal"><span class="plan-number">03</span><div><b>Chụp vài tấm ảnh</b><p>Lưu lại một ngày dễ thương để sau này còn có cái mà nhắc.</p></div><span class="plan-doodle">⌁</span></div>
+      <div class="countdown-card reveal" aria-live="polite">
+        <div class="countdown-heading"><span class="countdown-star">✧</span><span>ĐẾM NGƯỢC ĐẾN NGÀY GẶP NHAU</span><span class="countdown-star">✧</span></div>
+        <div class="countdown-grid" id="countdown" data-state="waiting">
+          <div class="count-unit"><strong id="count-days">--</strong><span>NGÀY</span></div>
+          <span class="count-separator">:</span>
+          <div class="count-unit"><strong id="count-hours">--</strong><span>GIỜ</span></div>
+          <span class="count-separator">:</span>
+          <div class="count-unit"><strong id="count-minutes">--</strong><span>PHÚT</span></div>
+          <span class="count-separator">:</span>
+          <div class="count-unit"><strong id="count-seconds">--</strong><span>GIÂY</span></div>
+        </div>
+        <p class="countdown-note handwritten" id="countdown-note">Mong sớm được gặp mọi người!</p>
       </div>
+      <div class="event-wave" aria-hidden="true"><span>〰</span><span>〰</span><span>〰</span></div>
     </section>
 
-    <section class="section-wrap gallery-section" id="gallery">
-      <div class="section-kicker reveal"><span>04</span><span>một chút kỷ niệm</span></div>
-      <h2 class="section-title reveal">Gom lại vài <span class="marker marker-green">khoảnh khắc</span></h2>
-      <p class="section-desc reveal">Bạn thay mấy khung hình này bằng ảnh của hội mình nhé.</p>
-      <div class="gallery-grid">
-        <figure class="photo-note photo-one reveal"><img src="images/memory-01.svg" alt="Khung ảnh kỷ niệm số 1"><figcaption>tụi mình, ngày ấy ♡</figcaption></figure>
-        <figure class="photo-note photo-two reveal"><img src="images/memory-02.svg" alt="Khung ảnh kỷ niệm số 2"><figcaption>một ngày vui ghê</figcaption></figure>
-        <figure class="photo-note photo-three reveal"><img src="images/memory-03.svg" alt="Khung ảnh kỷ niệm số 3"><figcaption>còn nhiều lần nữa nha!</figcaption></figure>
+    <!-- PHẦN 4: Album -->
+    <section class="section album-section" id="album">
+      <div class="section-kicker reveal"><span class="kicker-line"></span> 03 / ALBUM KỶ NIỆM <span class="kicker-line"></span></div>
+      <div class="section-heading reveal">
+        <p class="handwritten heading-note">Mấy khoảnh khắc thương thương</p>
+        <h2>Our little <em>memories</em></h2>
+        <p class="section-description">Một chút hình ảnh cũ, để nhớ rằng chúng ta đã có nhiều ngày vui đến thế.</p>
       </div>
+      <div class="photo-grid" id="photo-grid">
+        <button class="polaroid polaroid-one reveal" type="button" data-photo-index="0" aria-label="Mở ảnh kỷ niệm 1">
+          <span class="washi washi-blue" aria-hidden="true"></span>
+          <span class="photo-frame"><img src="images/memory-01.jpg" alt="Ảnh kỷ niệm 1" loading="lazy"><span class="photo-placeholder"><span>✦</span><b>YOUR MEMORY</b><small>memory-01.jpg</small></span></span>
+          <span class="photo-caption handwritten">Một ngày thật xanh ♡</span>
+        </button>
+        <button class="polaroid polaroid-two reveal" type="button" data-photo-index="1" aria-label="Mở ảnh kỷ niệm 2">
+          <span class="washi washi-gold" aria-hidden="true"></span>
+          <span class="photo-frame"><img src="images/memory-02.jpg" alt="Ảnh kỷ niệm 2" loading="lazy"><span class="photo-placeholder"><span>✧</span><b>YOUR MEMORY</b><small>memory-02.jpg</small></span></span>
+          <span class="photo-caption handwritten">Cười một chút nhé!</span>
+        </button>
+        <button class="polaroid polaroid-three reveal" type="button" data-photo-index="2" aria-label="Mở ảnh kỷ niệm 3">
+          <span class="washi washi-teal" aria-hidden="true"></span>
+          <span class="photo-frame"><img src="images/memory-03.jpg" alt="Ảnh kỷ niệm 3" loading="lazy"><span class="photo-placeholder"><span>❧</span><b>YOUR MEMORY</b><small>memory-03.jpg</small></span></span>
+          <span class="photo-caption handwritten">Lưu lại thanh xuân</span>
+        </button>
+      </div>
+      <p class="album-footnote handwritten reveal">Bạn có thể thay ảnh bằng những tấm hình của cả nhóm nhé <span>✦</span></p>
+      <dialog class="photo-dialog" id="photo-dialog" aria-label="Xem ảnh kỷ niệm">
+        <form method="dialog"><button class="dialog-close" aria-label="Đóng ảnh">×</button></form>
+        <img id="dialog-image" src="" alt="Ảnh kỷ niệm được phóng to">
+        <p class="dialog-caption handwritten" id="dialog-caption"></p>
+      </dialog>
     </section>
 
-    <section class="section-wrap guestbook-section" id="guestbook">
-      <div class="section-kicker reveal"><span>05</span><span>sổ lưu bút</span></div>
-      <h2 class="section-title reveal">Để lại một <span class="marker marker-orange">dấu nhỏ</span></h2>
-      <p class="section-desc reveal">Đi được thì nhắn một tiếng, tiện thể để lại vài dòng dễ thương cho mọi người đọc nha.</p>
+    <!-- PHẦN 5: Sổ lưu bút -->
+    <section class="section guestbook-section" id="guestbook">
+      <div class="section-kicker reveal"><span class="kicker-line"></span> 04 / SỔ LƯU BÚT <span class="kicker-line"></span></div>
+      <div class="section-heading reveal">
+        <p class="handwritten heading-note">Để lại vài dòng nha</p>
+        <h2>Words to <em>remember</em></h2>
+        <p class="section-description">Có điều gì muốn nhắn gửi? Viết vào đây để mọi người cùng đọc và giữ lại nhé.</p>
+      </div>
       <div class="guestbook-layout">
-        <form class="guestbook-form notebook-card reveal" id="guestbookForm">
-          <label for="guestName">Tên bạn</label>
-          <input id="guestName" name="name" type="text" maxlength="40" placeholder="Ví dụ: Minh Anh" required autocomplete="name">
-          <label for="guestMessage">Lời nhắn / lời chúc</label>
-          <textarea id="guestMessage" name="message" rows="4" maxlength="280" placeholder="Có gì muốn nhắn với cả hội không?" required></textarea>
-          <div class="form-bottom"><span id="charCount">0/280</span><button class="send-button" type="submit">Gửi lời nhắn <span>↗</span></button></div>
-          <input class="website-field" type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="form-status" id="formStatus" role="status">Kết nối sổ lưu bút sẽ hoạt động sau khi bạn cấu hình Supabase.</p>
+        <form class="guestbook-form reveal" id="guestbook-form" novalidate>
+          <div class="form-topline"><span>DEAR FRIEND,</span><span>✦</span></div>
+          <label for="guest-name">Tên của bạn</label>
+          <input id="guest-name" name="name" type="text" maxlength="60" autocomplete="name" placeholder="Mình là..." required>
+          <label for="guest-message">Lời nhắn / lời chúc</label>
+          <textarea id="guest-message" name="message" rows="5" maxlength="1000" placeholder="Viết điều bạn muốn gửi gắm ở đây nhé..." required></textarea>
+          <!-- Trường honeypot: người dùng thật không cần điền -->
+          <div class="honeypot" aria-hidden="true"><label for="guest-website">Website</label><input id="guest-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="form-meta"><span id="message-count">0 / 1000</span><span>Viết thật lòng là được ♡</span></div>
+          <button class="button button-gold submit-button" id="guestbook-submit" type="submit"><span>GỬI LỜI NHẮN</span><span aria-hidden="true">↗</span></button>
+          <p class="form-status" id="guestbook-status" role="status" aria-live="polite">Kết nối sổ lưu bút để cùng đọc lời nhắn của nhau.</p>
+          <p class="form-footnote">Lời nhắn đã gửi sẽ hiển thị công khai để cả nhóm cùng xem.</p>
         </form>
-        <div class="guestbook-entries reveal">
-          <div class="entries-heading"><span>lời nhắn từ mọi người</span><span class="entry-count" id="entryCount">0 lời nhắn</span></div>
-          <div id="entriesList" class="entries-list"><div class="empty-note">Chưa có lời nhắn nào.<br>Viết dòng đầu tiên đi bạn! ✎</div></div>
+        <div class="guestbook-list-wrap reveal">
+          <div class="entries-heading"><div><span class="entries-kicker">A PAGE FULL OF KIND WORDS</span><h3>Lời nhắn từ mọi người</h3></div><span class="entry-count" id="entry-count">—</span></div>
+          <div class="guestbook-list" id="guestbook-list" aria-live="polite" aria-busy="true">
+            <div class="entries-loading"><span class="loading-dot"></span> Đang mở sổ lưu bút...</div>
+          </div>
+          <p class="entries-note handwritten">Mỗi lời nhắn là một món quà nhỏ. Cảm ơn bạn! <span>♡</span></p>
         </div>
       </div>
-      <p class="public-note">Lưu bút được hiển thị công khai để cả hội cùng đọc. Đừng ghi thông tin riêng tư nhé.</p>
     </section>
 
-    <footer class="footer section-wrap">
-      <div class="footer-doodle" aria-hidden="true">✳</div>
-      <p class="hand-label">vậy là chốt nha!</p>
-      <h2>Gặp bạn <span class="marker marker-green">hôm ấy</span> ♡</h2>
-      <p>Nhớ đến đó. Có bạn là vui rồi!</p>
-      <button class="back-top" id="backTop" type="button">lên đầu trang ↑</button>
-      <small>được làm bằng một chút háo hức & rất nhiều tình bạn</small>
-    </footer>
+    <!-- PHẦN 6: Cảm ơn -->
+    <section class="section thanks-section" id="thanks">
+      <div class="thanks-stars" aria-hidden="true"><span>✦</span><span>✧</span><span>·</span><span>✦</span><span>✧</span></div>
+      <p class="section-kicker reveal"><span class="kicker-line"></span> 05 / LỜI CUỐI <span class="kicker-line"></span></p>
+      <div class="thanks-content reveal">
+        <p class="handwritten thanks-overline">Before you go...</p>
+        <h2>Cảm ơn vì<br><em>đã ghé qua!</em></h2>
+        <div class="thanks-divider"><span>♡</span></div>
+        <p>Mong rằng chúng ta sẽ có thêm thật nhiều kỷ niệm đẹp cùng nhau.</p>
+        <p>Hẹn gặp mọi người nhé!</p>
+        <span class="handwritten thanks-signature" id="thanks-signature">Thương mến, Hải Dương</span>
+      </div>
+      <div class="thanks-shell" aria-hidden="true">❧</div>
+      <footer class="site-footer"><span>MADE WITH <b>♡</b> & A LITTLE SALT IN THE AIR</span><a href="#letter">Về đầu thư ↑</a></footer>
+    </section>
   </main>
-
-  <audio id="backgroundMusic" preload="none" loop></audio>
-  <noscript>Website cần bật JavaScript để mở thư, phát nhạc và gửi lưu bút.</noscript>
 </body>
 </html>
