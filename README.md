@@ -34,7 +34,25 @@ Mở `config.js` và sửa các mục sau:
 
 Tất cả đường dẫn tài nguyên nội bộ dùng đường dẫn tương đối, phù hợp với GitHub Pages Project Site.
 
-## 3. Thêm ảnh và nhạc của bạn
+## 3. Đổi kiểu chữ (font)
+
+Website hiện dùng 3 font: **Be Vietnam Pro** cho nội dung chính, **Playfair Display** cho phần chữ serif và **Caveat** cho các dòng viết tay. Cả bộ font được chọn để hiển thị tiếng Việt tốt. Nếu Google Fonts không truy cập được, trình duyệt tự chuyển sang các font dự phòng trong `styles.css`.
+
+Để thay font, mở `styles.css`, tìm phần `:root` ở đầu file và sửa 3 biến sau:
+
+```css
+--serif: "Playfair Display", Georgia, "Times New Roman", serif;
+--hand: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+--sans: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
+```
+
+- `--sans`: chữ nội dung, nút bấm và biểu mẫu.
+- `--serif`: tiêu đề trang trọng, nội dung thư và thông tin sự kiện.
+- `--hand`: tiêu đề viết tay, chữ ký và ghi chú trang trí.
+
+Nếu dùng font Google khác, hãy thêm font đó vào đường dẫn Google Fonts trong phần `<head>` của `index.html`, rồi ghi đúng tên font vào biến CSS tương ứng. Sau khi thay font trên GitHub Pages, tải lại mạnh bằng `Ctrl + F5` (máy tính) hoặc xóa cache trang trên điện thoại để tránh xem CSS cũ.
+
+## 4. Thêm ảnh và nhạc của bạn
 
 ### Album ảnh
 
@@ -58,7 +76,7 @@ music/nhac-lofi.mp3
 
 Hoặc sửa `music.src` trong `config.js`. Nhạc chỉ được thử phát sau khi người xem nhấn **MỞ THƯ**. Trường hợp file chưa có hoặc trình duyệt từ chối phát, các phần còn lại của website vẫn hoạt động.
 
-## 4. Tạo Supabase Database cho sổ lưu bút
+## 5. Tạo Supabase Database cho sổ lưu bút
 
 1. Tạo project miễn phí tại [Supabase](https://supabase.com/).
 2. Mở project, vào **SQL Editor**.
@@ -86,13 +104,13 @@ Ba biến này nằm ngay đầu file `config.js`; hãy thay giá trị mẫu b�
 
 **Lưu ý chống spam:** cooldown và honeypot ở frontend có thể bị người có chủ ý vượt qua bằng cách gọi API trực tiếp. Với website công khai có lượng truy cập lớn, nên bổ sung CAPTCHA/Cloudflare Turnstile và một Edge Function hoặc lớp rate-limit phía server. Không thể thực thi giới hạn theo IP đáng tin cậy chỉ bằng JavaScript chạy trên trình duyệt.
 
-## 5. Chạy thử trên máy
+## 6. Chạy thử trên máy
 
 Bạn có thể mở `index.html` trực tiếp để xem giao diện, nhưng một số trình duyệt hạn chế tài nguyên khi dùng `file://`. Cách thử đáng tin cậy hơn là mở thư mục bằng tiện ích Live Server trong VS Code hoặc một máy chủ tĩnh bất kỳ. Không cần chạy lệnh build.
 
 Khi chưa điền Supabase URL và Publishable Key, form lưu bút sẽ hiển thị thông báo chưa cấu hình và bị vô hiệu hóa. Đây là hành vi có chủ ý; website không giả lập việc lưu lời nhắn.
 
-## 6. Triển khai miễn phí bằng GitHub Pages
+## 7. Triển khai miễn phí bằng GitHub Pages
 
 1. Tạo một repository GitHub, ví dụ `thu-moi`.
 2. Upload toàn bộ nội dung bên trong thư mục này lên **root** của repository (đảm bảo `index.html` nằm ngay ở root).

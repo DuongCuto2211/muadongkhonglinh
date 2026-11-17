@@ -15,9 +15,10 @@
   --ink: #25424a;
   --muted: #718187;
   --line: rgba(40, 83, 94, .18);
-  --serif: Georgia, "Times New Roman", serif;
-  --hand: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
-  --sans: "Segoe UI", Arial, sans-serif;
+  /* Đổi font tại 3 biến này. Google Fonts đã được nạp trong index.html; các font sau là dự phòng. */
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --hand: "Caveat", "Segoe Print", "Comic Sans MS", cursive;
+  --sans: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
   --shadow: 0 22px 60px rgba(12, 42, 54, .12);
 }
 
